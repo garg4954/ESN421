@@ -1,0 +1,41 @@
+clc
+clear all; close all
+
+% set length of X and Y
+xlen = 1000; % larger because we want object to move in x-direction
+ylen = 1000;
+
+% create vectors
+xvec = [1:1:xlen];
+yvec = [1:1:ylen];
+
+% create 2D mesh of size xlen and ylen
+ xvec=xvec-mean(xvec);yvec=yvec-mean(yvec);
+[X,Y] = meshgrid(xvec,yvec);
+ RSQ=X.^2+Y.^2;
+
+% Initialize all zeros
+Z = zeros(size(X));
+x1=0;y1=0;
+% define shape of moving object
+rx=100;
+ry=100;
+Z(((X-x1)/rx).^2+((Y-y1)/ry).^2<=1)=1;
+
+% plot initial condition
+figure(1); axis equal
+imagesc(Z)
+
+% number of simulation steps
+nsteps = 100; 
+step_size = 1;
+
+% slide the object
+for ii=1:nsteps
+ ii=ii+step_size;
+ Z = zeros(size(X));
+   Z(((X-ii)/rx).^2+((Y)/ry).^2<=1)=1;
+ % Write this block
+    figure(2)
+    imagesc(Z)
+end
